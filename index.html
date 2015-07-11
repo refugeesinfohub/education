@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<title>Pocket Reads</title>
+		<title>Berlin Tech Education</title>
     <meta charset="UTF-8">
 		<script type="text/javascript" src="js/ICanHaz.js"></script> 
 		<script type="text/javascript" src='js/jquery.js '></script>
@@ -15,29 +15,30 @@
 <body>
 	<div id="wrapper">
 		<div id="title"></div>
-		<ul class="nav">
+		<!-- <ul class="nav">
 			<li>ARTICLES READ AND ARCHIVED</li>
 			<li>POWERED BY <a href="http://jlord.gitub.io/sheetsee.js" target="_blank">SHEETSEE.JS</a> AND <a href="http://www.ifttt.com" target="blank">IFTTT.COM</a> (AND <a href="http://www.getpocket.com/" target="_blank">POCKET</a>)</li>
       <li><a class="dim" href="#info" target="_blank">INFO</a><span class="dim"> or</span></li>
 			<li><a class="dim" href="http://www.github.com/jlord/sheetsee-pocket#hi" target="_blank">SET UP YOUR ARCHIVE</a></li>
-		</ul>
+		</ul> -->
+		This is a list of community tech initiatives in Berlin, managed in an open <a href=" https://docs.google.com/spreadsheets/d/1TO8SpiSHnwTc6n0P9Tw2Crsmw40xb62R7IM2vxwksFg/edit#gid=0">Google Sheet</a>, which was started by <a href="https://twitter.com/kriesse">@kriesse</a>.
 
 		<div id="filters" class="container">
 			<input id="articleSearch" type="text" placeholder="Search for.."></input>
 			<span class="clear sml-button">Clear</span> 
-      <h3>Tags <span id="tags"></span>   
+      <!-- <h3>Tags <span id="tags"></span>    -->
     </div>
 
 		<div id="articleTable"></div>
 
     <div id="info">
       <h2>INFO</h2>
-      <p>This is an open source, easy to replicate project by <a href="http://www.twitter.com/jllord" target="_blank">@jllord</a>. If you use <a href="http://www.getpocket.com" target="_blank">Pocket</a> to save articles for later, you can also use <a href="http://www.ifttt.com" target="_blank">ifttt.com</a> (if this than that) to automate sending the article details to a Google Spreadsheet once you've archived it. Once you have a Google Spreadsheet you can use <a href="http://jlord.github.io/sheetsee.js" target="_blank">sheetsee.js</a> to turn into a website like so. So many possibilities! See the <a href="http://www.github.com/jlord/sheetsee-pocket#hi" target="_blank">documentation</a> to learn how to set up your own or contribute code!</p>
+      <p>This website is forked from <a href="http://jlord.us/sheetsee-pocket/">Sheetsee Pocket</a>  by <a href="http://www.twitter.com/jllord" target="_blank">@jllord</a>.</p>
     </div>
 	</div><!-- end wrapper -->
 
 	<script id="title" type="text/html">
-		<h1><span class="highlighted">{{numArticles}}</span> Articles from Pocket</h1>
+		<h1><span class="highlighted">{{numArticles}}</span> Berlin Tech Education Initiatives</h1>
 	</script>
 
   <script id="tags" type="text/html">
@@ -48,26 +49,42 @@
 
 	<script id="articleTable" type="text/html">
 		<table>
-			<tr><th class="fancy">&#8470;</th><th class="date">Date</th><th class="">Article</th><th>Tags</th></tr>
+			<tr><th class="fancy">&#8470;</th><th class="">Name / Link</th><th class="">Organizer</th><th>Format</th><th>When</th><th>Topics</th><th>CoC</th></tr>
 		  {{#rows}}
-		  	<tr class="{{rowNumber}}"><td class="light-type">{{rowNumber}}</td><td class="date">{{date}}</td><td class="article"><a href="{{url}}" target="_blank">{{article}}</a></td>
-		  	<td class="tag">{{#tags}}<a href="#">{{tag}}</a> {{/tags}}</td></tr>
+		  	<tr class="{{rowNumber}}"><td class="light-type">{{rowNumber}}</td><td><a href="{{URL}}">{{Name}}</a></td><td class="">{{Organizer}}</td><td>{{Format}}</td><td>{{When}}</td>
+		  	<td class="topics">{{Topic}}</td><td>{{#Code of Conduct}}<a href="{{Code of Conduct}}">Link</a>{{/Code of Conduct}}{{^Code of Conduct}}N/A{{/Code of Conduct}}</tr>
 		  {{/rows}}
 	  </table>
 	</script>
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      var URL = "0Ao5u1U6KYND7dERheVpFZThEUkdPZnFXXzMxTzJ3dEE"
+      var URL = "1TO8SpiSHnwTc6n0P9Tw2Crsmw40xb62R7IM2vxwksFg"
       Tabletop.init( { key: URL, callback: showInfo, simpleSheet: true } )
     }) 
       
     function showInfo(data) {
-      var gData = separateTags(data)
-      drawTags(gData)
-      cleanDates(gData)
+			// format headers
+			var headers = data.shift()
+			var gData = data.map(function (row) {
+				var formatted = {}
+				Object.keys(row).forEach(function (cell) {
+					if(cell === 'rowNumber') formatted['rowNumber'] = row[cell] - 1
+					else formatted[headers[cell]] = row[cell]
+				})
+				return formatted
+			})
+      // var gData = separateTags(data)
+      // drawTags(gData)
       pageTitle(gData)
-      Sheetsee.makeTable(gData.reverse(), "#articleTable")
+			// clean urls
+			gData.forEach(function (row) {
+				var url = row['URL']
+				var coc = row['Code of Conduct']
+				if(url !== '' && url.slice(0,4) !== 'http') row['URL'] = 'http://' + url
+				if(coc !== '' && coc.slice(0,4) !== 'http') row['Code of Conduct'] = 'http://' + coc
+			})
+      Sheetsee.makeTable(gData, "#articleTable")
       Sheetsee.initiateTableFilter(gData, "#articleSearch", "#articleTable")
 
       $(document).on("click", ".tag", function(event){

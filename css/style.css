@@ -3,8 +3,8 @@ body {font-family: Montserrat; font-size: 13px; padding: 10px 0px 40px 0px; colo
 h1 {font-size: 48px; margin-bottom: 20px;}
 .highlighted {color: #06DDA0; opacity: 1; transition: opacity .25s ease-in-out;}
 .highlighted:hover {opacity: 0.5;}
-a {text-decoration: none; color: #333;}
-a:hover {padding-bottom: 1px; border-bottom: 1px dotted #333;}
+a {text-decoration: none; color: #333; border-bottom: 1px dotted #333; padding-bottom: 1px;}
+a:hover {padding-bottom: 1px; border-bottom: 1px dotted #333; color: #06DDA0;}
 p a {color: #06DDA0;}
 
 .light-type {color: #777;} /* #06DDA0 */
@@ -23,6 +23,7 @@ ul.nav a:hover {font-weight: 900;}
 #tags {line-height: 25px;}
 
 table {border-spacing: 0px; min-width: 900px; margin: 0 auto;}
+td { max-width: 150px; overflow: hidden; text-overflow: ellipsis;}
 th {padding: 10px}
 td, text {padding: 5px 10px; font-size: 12px; font-weight: lighter; line-height: 18px;}
 td.article a:visited {color: #777;}

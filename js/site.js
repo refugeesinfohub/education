@@ -19,14 +19,13 @@ function existingTagsList(data) {
 // individual links in the html
 function separateTags(data) {
 	data.forEach(function findMultiTags(article) {
-		if (article.tags === "") return
-		if (article.tags.indexOf(',') >= 0) {
-			var tagArray = parseTags(article.tags)
+		if (article.Topic.indexOf(',') >= 0) {
+			var tagArray = parseTags(article.Topic)
 			var tagObjArray = arrayIntoObjects(tagArray)
 			article.tags = tagObjArray
 		}
 		else {
-			article.tags = [{"tag": article.tags}]
+			article.tags = [{"tag": article.Topic}]
 		}
 	})
   return data
