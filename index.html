@@ -1,16 +1,16 @@
 <html>
 	<head>
-		<title>Berlin Tech Education</title>
+		<title>Education Initiatives for Refugees</title>
     <meta charset="UTF-8">
-		<script type="text/javascript" src="js/ICanHaz.js"></script> 
+		<script type="text/javascript" src="js/ICanHaz.js"></script>
 		<script type="text/javascript" src='js/jquery.js '></script>
     <script type="text/javascript" src='js/tabletop.js'></script>
     <script type="text/javascript" src='js/site.js'></script>
 		<script type="text/javascript" src='js/sheetsee.js'></script>
-    
+
 		<link rel="shortcut icon" href="https://raw.github.com/jlord/sheetsee-pocket/master/favicon-p.png"/>
 		<link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
-		<link media="screen" rel="stylesheet" type="text/css" href="css/style.css"> 
+		<link media="screen" rel="stylesheet" type="text/css" href="css/style.css">
 	</head>
 <body>
 	<div id="wrapper">
@@ -21,11 +21,11 @@
       <li><a class="dim" href="#info" target="_blank">INFO</a><span class="dim"> or</span></li>
 			<li><a class="dim" href="http://www.github.com/jlord/sheetsee-pocket#hi" target="_blank">SET UP YOUR ARCHIVE</a></li>
 		</ul> -->
-		This is a list of community tech initiatives in Berlin, managed in an open <a href=" https://docs.google.com/spreadsheets/d/1TO8SpiSHnwTc6n0P9Tw2Crsmw40xb62R7IM2vxwksFg/edit#gid=0">Google Sheet</a>, which was started by <a href="https://twitter.com/kriesse">@kriesse</a>.
+		This is a list of education initiatives for Refugees, managed in an open <a href="https://docs.google.com/spreadsheets/d/1-v34KHWOGl0VYZ19GYhY-ToEKoLBn_231xE3QZV5hkQ/pubhtml">Google Sheet</a>.
 
 		<div id="filters" class="container">
 			<input id="articleSearch" type="text" placeholder="Search for.."></input>
-			<span class="clear sml-button">Clear</span> 
+			<span class="clear sml-button">Clear</span>
       <!-- <h3>Tags <span id="tags"></span>    -->
     </div>
 
@@ -38,7 +38,7 @@
 	</div><!-- end wrapper -->
 
 	<script id="title" type="text/html">
-		<h1><span class="highlighted">{{numArticles}}</span> Berlin Tech Education Initiatives</h1>
+		<h1><span class="highlighted">{{numArticles}}</span> Education Initiatives for Refugees</h1>
 	</script>
 
   <script id="tags" type="text/html">
@@ -49,20 +49,30 @@
 
 	<script id="articleTable" type="text/html">
 		<table>
-			<tr><th class="fancy">&#8470;</th><th class="">Name / Link</th><th class="">Organizer</th><th>Format</th><th>When</th><th>Topics</th><th>CoC</th></tr>
+			<tr><th class="fancy">&#8470;</th><th class="">Name / Link</th>
+				<th class="">Offer</th>
+				<th>Needs</th>
+				<th>Location</th>
+				<th>Contact</th>
+			</tr>
 		  {{#rows}}
-		  	<tr class="{{rowNumber}}"><td class="light-type">{{rowNumber}}</td><td><a href="{{URL}}">{{Name}}</a></td><td class="">{{Organizer}}</td><td>{{Format}}</td><td>{{When}}</td>
-		  	<td class="topics">{{Topic}}</td><td>{{#Code of Conduct}}<a href="{{Code of Conduct}}">Link</a>{{/Code of Conduct}}{{^Code of Conduct}}N/A{{/Code of Conduct}}</tr>
-		  {{/rows}}
+		  	<tr class="{{rowNumber}}"><td class="light-type">{{rowNumber}}</td>
+					<td><a href="{{URL}}">{{Name}}</a></td>
+					<td class="">{{Offer}}</td>
+					<td>{{Needs}}</td>
+					<td>{{Location}}</td>
+		  	<td class="topics">{{Contact}}</td><td class="topics">{{Additional Links}}</td>
+			</tr>
+			{{/rows}}
 	  </table>
 	</script>
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      var URL = "1TO8SpiSHnwTc6n0P9Tw2Crsmw40xb62R7IM2vxwksFg"
+      var URL = "https://docs.google.com/spreadsheets/d/1-v34KHWOGl0VYZ19GYhY-ToEKoLBn_231xE3QZV5hkQ/pubhtml"
       Tabletop.init( { key: URL, callback: showInfo, simpleSheet: true } )
-    }) 
-      
+    })
+
     function showInfo(data) {
 			// format headers
 			var headers = data.shift()
@@ -78,12 +88,10 @@
       // drawTags(gData)
       pageTitle(gData)
 			// clean urls
-			gData.forEach(function (row) {
-				var url = row['URL']
-				var coc = row['Code of Conduct']
-				if(url !== '' && url.slice(0,4) !== 'http') row['URL'] = 'http://' + url
-				if(coc !== '' && coc.slice(0,4) !== 'http') row['Code of Conduct'] = 'http://' + coc
-			})
+			// gData.forEach(function (row) {
+			// 	var url = row['URL']
+			// 	if(url !== '' && url.slice(0,4) !== 'http') row['URL'] = 'http://' + url
+			// })
       Sheetsee.makeTable(gData, "#articleTable")
       Sheetsee.initiateTableFilter(gData, "#articleSearch", "#articleTable")
 
