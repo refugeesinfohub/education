@@ -21,7 +21,7 @@
       <li><a class="dim" href="#info" target="_blank">INFO</a><span class="dim"> or</span></li>
 			<li><a class="dim" href="http://www.github.com/jlord/sheetsee-pocket#hi" target="_blank">SET UP YOUR ARCHIVE</a></li>
 		</ul> -->
-		This is a list of education initiatives for Refugees, managed in an open <a href="https://docs.google.com/spreadsheets/d/1-v34KHWOGl0VYZ19GYhY-ToEKoLBn_231xE3QZV5hkQ/pubhtml">Google Sheet</a>.
+		This is a list of education initiatives for Refugees, managed in an open <a href="https://docs.google.com/spreadsheets/d/1-v34KHWOGl0VYZ19GYhY-ToEKoLBn_231xE3QZV5hkQ/edit?usp=sharing">Google Sheet</a>.
 
 		<div id="filters" class="container">
 			<input id="articleSearch" type="text" placeholder="Search for.."></input>
@@ -54,6 +54,7 @@
 				<th>Needs</th>
 				<th>Location</th>
 				<th>Contact</th>
+				<th>Additional Links</th>
 			</tr>
 		  {{#rows}}
 		  	<tr class="{{rowNumber}}"><td class="light-type">{{rowNumber}}</td>
@@ -61,7 +62,8 @@
 					<td class="">{{Offer}}</td>
 					<td>{{Needs}}</td>
 					<td>{{Location}}</td>
-		  	<td class="topics">{{Contact}}</td><td class="topics">{{Additional Links}}</td>
+		  	<td class="topics">{{Contact}}</td>
+				<td class="topics">{{Additional Links}}</td>
 			</tr>
 			{{/rows}}
 	  </table>
@@ -69,7 +71,7 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      var URL = "https://docs.google.com/spreadsheets/d/1-v34KHWOGl0VYZ19GYhY-ToEKoLBn_231xE3QZV5hkQ/pubhtml"
+			var URL = "https://docs.google.com/spreadsheets/d/1-v34KHWOGl0VYZ19GYhY-ToEKoLBn_231xE3QZV5hkQ/pubhtml"
       Tabletop.init( { key: URL, callback: showInfo, simpleSheet: true } )
     })
 
